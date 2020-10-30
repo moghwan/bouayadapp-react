@@ -9,13 +9,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get("/agenda", {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-      }
-    }).then(response => response.data).then((data) => {
-      this.setState({ day: data.data })
+    axios.get("/agenda").then(response => response.data.data).then((data) => {
+      this.setState({ day: data })
       console.log(this.state.day)
      })
   }
