@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from "react"
+import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
@@ -35,7 +36,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SideCard({ day } = this.props.day) {
+export default function SideCard() {
+  const [today, setToday] = useState([]);
+  
+  useEffect(() => {
+    fetchToday();
+  }, [])
+
+  const fetchToday = async () => {
+    await axios.get("/agenda")
+        .then(response => response.data.data)
+        .then((data) => {
+          setToday(data);
+          console.log(data)
+        })
+  }
+
   const classes = useStyles();
   return (
     <Grid container component="main" className={classes.root}>
@@ -44,8 +60,7 @@ export default function SideCard({ day } = this.props.day) {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
-            {/* { day.id || <CircularProgress /> } */}
-            <CircularProgress />
+            { today.id || <CircularProgress /> }
           </Typography>
           <form className={classes.form} noValidate>
             <Link to="/about">
