@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import ReactDOM from 'react-dom';
-import Button from '@material-ui/core/Button';
 import axios from 'axios';
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import SideCard from "./pages/SideCard";
+import About from "./pages/About";
 class App extends Component {
 
-  state = {
-    day: []
-  }
+  state = { day: [] }
 
   componentDidMount() {
     axios.get("/agenda").then(response => response.data.data).then((data) => {
@@ -18,14 +16,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <p>{this.state.day.id}</p>
-
-        <Button variant="contained" color="primary">
-          Hello World
-        </Button>
-        
-      </div>
+      <Router>
+        <div>
+          <Switch>
+            <Route path="/about" exact component={About} />
+            <Route path="/" component={SideCard} />
+            {/* <Route path="/side" component={(props) => {<SideCard day={this.state.day}/>}} /> */}
+          </Switch>
+        </div>
+      </Router>
     )
   };
 }
