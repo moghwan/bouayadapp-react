@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react"
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -21,23 +20,32 @@ const useStyles = makeStyles((theme) => ({
     backgroundSize: 'cover',
     backgroundPosition: 'center',
   },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  card: {
+    margin: theme.spacing(4, 4),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  noBorder: { border: '0 !important' },
+  noBorderBottom: { borderBottomWidth: '0 !important' },
+  noBorderTop: { borderTopWidth: '0 !important' },
+  noBorderTopBottom: { borderBottomWidth: '0 !important', borderTopWidth: '0 !important' },
+  extraTop: { borderTop: '3px solid #15486c !important' },
+  extraBottom: { borderBottom: '3px solid #15486c !important' },
+  extraRight: { borderRight: '3px solid #15486c !important' },
+  extraLeft: { borderLeft: '3px solid #15486c !important' },
   block: {
+    border: '1px solid #15486c',
     padding: theme.spacing(2),
     textAlign: 'center',
     color: theme.palette.text.secondary,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center'
   },
 }));
 
-export default function SideCard() {
+const SideCard = () => {
   const [today, setToday] = useState([]);
   
   useEffect(() => {
@@ -53,77 +61,86 @@ export default function SideCard() {
         })
   }
 
-  // TODO: remove 'item' attribute
-  // TODO: change globally elevation to 0
-
   const classes = useStyles();
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
+      <Grid xs={false} sm={4} md={7} className={classes.image} />
+      <Grid xs={12} sm={8} md={5} square>
+        <div className={classes.card}>
           <Typography component="h1" variant="h5">
             { today.id ? null : <CircularProgress /> }
           </Typography>
           <Grid container spacing={3} style={{display: today.id ? null : 'none' }}>
-            <Grid item xs={6}>
-              <Paper elevation={1} className={classes.block}>{today.cr_month_name_ar} {today.cr_year}</Paper>
+            <Grid xs={6}>
+              <span style={{ borderTopLeftRadius: '10px'}} className={[classes.block, classes.extraTop, classes.extraLeft].join(' ')}>{today.cr_month_name_ar} {today.cr_year}</span>
             </Grid>
-            <Grid item xs={6}>
-              <Paper elevation={1} className={classes.block}>{today.hij_month_name_ar} {today.hij_year}</Paper>
+            <Grid xs={6}>
+              <span style={{ borderTopRightRadius: '10px'}} className={[classes.block, classes.extraTop, classes.extraRight].join(' ')}>{today.hij_month_name_ar} {today.hij_year}</span>
             </Grid>
-            <Grid item xs={6}>
-              <Grid style={{ height: "100%" }}>
-                <Paper elevation={1} className={classes.block} style={{ height: "20%" }}>{today.day_name_fr}</Paper>
-                <Paper elevation={1} className={classes.block} style={{ height: "60%" }}>{today.cr_day_number}</Paper>
-                <Paper elevation={1} className={classes.block} style={{ height: "20%" }}>{today.cr_month_name_fr}</Paper>
+            <Grid xs={6}>
+              <Grid>
+                <span className={[classes.block, classes.extraLeft, classes.noBorderBottom].join(' ')}>{today.day_name_fr}</span>
+                <span className={[classes.block, classes.extraLeft, classes.noBorderTopBottom].join(' ')}>
+                   <Typography variant="h1">
+                    {today.cr_day_number}
+                  </Typography>
+                </span>
+                <span style={{ borderBottomLeftRadius: '10px'}} className={[classes.block, classes.extraLeft, classes.extraBottom, classes.noBorderTop].join(' ')}>{today.cr_month_name_fr}</span>
               </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <Grid style={{ height: "100%" }}>
-                <Paper elevation={1} className={classes.block} style={{ height: "20%" }}>{today.day_name_ar}</Paper>
-                <Paper elevation={1} className={classes.block} style={{ height: "60%" }}>{today.hij_day_number}</Paper>
-                <Paper elevation={1} className={classes.block} style={{ height: "20%" }}>{today.hij_month_name_fr}</Paper>
+            <Grid xs={6}>
+              <Grid>
+                <span className={[classes.block, classes.extraRight, classes.noBorderBottom].join(' ')}>{today.day_name_ar}</span>
+                <span className={[classes.block, classes.extraRight, classes.noBorderTopBottom].join(' ')}>
+                   <Typography variant="h1">
+                    {today.hij_day_number}
+                  </Typography>
+                </span>
+                <span style={{ borderBottomRightRadius: '10px'}} className={[classes.block, classes.extraRight, classes.extraBottom, classes.noBorderTop].join(' ')}>{today.hij_month_name_fr}</span>
               </Grid>
             </Grid>
-            <Grid item xs={3}>
-              <Paper elevation={1} className={classes.block}>{today.town_oujda}</Paper>
-              <Paper elevation={1} className={classes.block}>{today.town_casa}</Paper>
+            <Grid xs={3}>
+              <span className={[classes.block, classes.noBorder].join(' ')}>{today.town_oujda}</span>
+              <span className={[classes.block, classes.noBorder].join(' ')}>{today.town_casa}</span>
             </Grid>
-            <Grid item xs={3}>
-              <Paper elevation={1} className={classes.block}>{today.town_fes}</Paper>
-              <Paper elevation={1} className={classes.block}>{today.town_marrakech}</Paper>
+            <Grid xs={3}>
+              <span className={[classes.block, classes.noBorder].join(' ')}>{today.town_fes}</span>
+              <span className={[classes.block, classes.noBorder].join(' ')}>{today.town_marrakech}</span>
             </Grid>
-            <Grid item xs={3}>
-              <Paper elevation={1} className={classes.block}>{today.town_meknes}</Paper>
-              <Paper elevation={1} className={classes.block}>{today.town_agadir}</Paper>
+            <Grid xs={3}>
+              <span className={[classes.block, classes.noBorder].join(' ')}>{today.town_meknes}</span>
+              <span className={[classes.block, classes.noBorder].join(' ')}>{today.town_agadir}</span>
             </Grid>
-            <Grid item xs={3}>
-              <Paper elevation={1} className={classes.block}>{today.town_rabat}</Paper>
-              <Paper elevation={1} className={classes.block}>{today.town_laayoune}</Paper>
+            <Grid xs={3}>
+              <span className={[classes.block, classes.noBorder].join(' ')}>{today.town_rabat}</span>
+              <span className={[classes.block, classes.noBorder].join(' ')}>{today.town_laayoune}</span>
             </Grid>
-            <Grid item xs={6}
+            <Grid xs={6}
               container
               direction="column"
               justify="space-around"
-              alignItems="stretch"
+              aligs="stretch"
             >
-              <Paper elevation={1} className={classes.block}>{today.time_fajr}</Paper>
-              <Paper elevation={1} className={classes.block}>{today.time_chourouk}</Paper>
-              <Paper elevation={1} className={classes.block}>{today.time_dohr}</Paper>
-              <Paper elevation={1} className={classes.block}>{today.time_asr}</Paper>
-              <Paper elevation={1} className={classes.block}>{today.time_maghreb}</Paper>
-              <Paper elevation={1} className={classes.block}>{today.time_isha}</Paper>
+              <span style={{ borderTopLeftRadius: '10px'}} className={[classes.block, classes.extraLeft, classes.extraTop, classes.noBorderBottom].join(' ')}>{today.time_fajr}</span>
+              <span className={[classes.block, classes.extraLeft, classes.noBorderTopBottom].join(' ')}>{today.time_chourouk}</span>
+              <span className={[classes.block, classes.extraLeft, classes.noBorderTopBottom].join(' ')}>{today.time_dohr}</span>
+              <span className={[classes.block, classes.extraLeft, classes.noBorderTopBottom].join(' ')}>{today.time_asr}</span>
+              <span className={[classes.block, classes.extraLeft, classes.noBorderTopBottom].join(' ')}>{today.time_maghreb}</span>
+              <span style={{ borderBottomLeftRadius: '10px'}} className={[classes.block, classes.extraLeft, classes.extraBottom, classes.noBorderTop].join(' ')}>{today.time_isha}</span>
             </Grid>
-            <Grid item xs={6}>
+            <Grid xs={6}>
               <Grid style={{ height: "100%" }}>
-                <Paper elevation={1} className={classes.block} style={{ height: "20%" }}>{today.fil_month_name_ar}</Paper>
-                <Paper elevation={1} className={classes.block} style={{ height: "80%" }}>{today.fil_month_number}</Paper>
+                <span className={[classes.block, classes.extraRight, classes.extraTop, classes.noBorderBottom].join(' ')} style={{ height: "16.6%" , borderTopRightRadius: '10px'}}>{today.fil_month_name_ar}</span>
+                <span className={[classes.block, classes.extraRight, classes.extraBottom, classes.noBorderTop].join(' ')} style={{ height: "83.3%", borderBottomRightRadius: '10px'}}>
+                  <Typography variant="h1">
+                    {today.fil_month_number}
+                  </Typography>  
+                </span>
               </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <Paper elevation={1} className={classes.block}>{today.hikma_back}</Paper>
+            <Grid xs={12}>
+              <span className={[classes.block, classes.noBorder].join(' ')}>{today.hikma_back}</span>
             </Grid>
           </Grid>
           <Link to="/about">
@@ -142,3 +159,5 @@ export default function SideCard() {
     </Grid>
   );
 }
+
+export default SideCard;

@@ -2,8 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SideCard from "./pages/SideCard";
 import About from "./pages/About";
-function App() {
-  
+const App = () => {
   return (
     <Router>
       <div>
