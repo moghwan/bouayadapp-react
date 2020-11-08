@@ -5,12 +5,12 @@ import About from "./pages/About";
 const App = () => {
   return (
     <Router>
-      <div>
+      <>
         <Switch>
           <Route path="/about" exact component={About} />
           <Route path="/" component={SideCard} />
         </Switch>
-      </div>
+      </>
     </Router>
   )
 }
