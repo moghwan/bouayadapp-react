@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   extraBottom: { borderBottom: '3px solid #15486c !important' },
   extraRight: { borderRight: '3px solid #15486c !important' },
   extraLeft: { borderLeft: '3px solid #15486c !important' },
+  prayers: {
+    flexDirection: 'row !important'
+  },
   block: {
     border: '1px solid #15486c',
     padding: theme.spacing(2),
@@ -113,34 +116,55 @@ const SideCard = () => {
               </Grid>
             </Grid>
             <Grid xs={3}>
-              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_oujda}</span>
-              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_casa}</span>
+              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_oujda} وجدة</span>
+              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_casa} الدار البيضاء</span>
             </Grid>
             <Grid xs={3}>
-              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_fes}</span>
-              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_marrakech}</span>
+              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_fes} فاس</span>
+              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_marrakech} مراكش</span>
             </Grid>
             <Grid xs={3}>
-              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_meknes}</span>
-              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_agadir}</span>
+              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_meknes} مكناس</span>
+              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_agadir} اغادير</span>
             </Grid>
             <Grid xs={3}>
-              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_rabat}</span>
-              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_laayoune}</span>
+              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_rabat} الرباط</span>
+              <span className={`${classes.block} ${classes.noBorder}`}>{today.town_laayoune} العيون</span>
             </Grid>
             <Grid xs={6} container direction="column" justify="space-around" aligs="stretch">
               <span 
-                className={`${classes.block} ${classes.extraLeft} ${classes.extraTop} ${classes.noBorderBottom}`} 
+                className={`${classes.block} ${classes.prayers} ${classes.extraLeft} ${classes.extraTop} ${classes.noBorderBottom}`} 
                 style={{ borderTopLeftRadius: '10px'}}>
-                  {today.time_fajr}</span>
-              <span className={`${classes.block} ${classes.extraLeft} ${classes.noBorderTopBottom}`}>{today.time_chourouk}</span>
-              <span className={`${classes.block} ${classes.extraLeft} ${classes.noBorderTopBottom}`}>{today.time_dohr}</span>
-              <span className={`${classes.block} ${classes.extraLeft} ${classes.noBorderTopBottom}`}>{today.time_asr}</span>
-              <span className={`${classes.block} ${classes.extraLeft} ${classes.noBorderTopBottom}`}>{today.time_maghreb}</span>
-              <span 
-                className={`${classes.block} ${classes.extraLeft} ${classes.extraBottom} ${classes.noBorderTop}`} 
+                    <Grid xs={3}>{today.time_fajr}</Grid>
+                  <Grid xs={6}></Grid>
+                  <Grid xs={3}>الفجر</Grid>
+                  </span>
+              <span className={`${classes.block} ${classes.prayers} ${classes.extraLeft} ${classes.noBorderTopBottom}`}>
+                <Grid xs={3}>{today.time_chourouk}</Grid>
+                <Grid xs={6}></Grid>
+                <Grid xs={3}>الشروق</Grid>
+                </span>
+              <span className={`${classes.block} ${classes.prayers} ${classes.extraLeft} ${classes.noBorderTopBottom}`}>
+                <Grid xs={3}>{today.time_dohr}</Grid>
+                <Grid xs={6}></Grid>
+                <Grid xs={3}>الظهر</Grid>
+                </span>
+              <span className={`${classes.block} ${classes.prayers} ${classes.extraLeft} ${classes.noBorderTopBottom}`}>
+                <Grid xs={3}>{today.time_asr}</Grid>
+                <Grid xs={6}></Grid>
+                <Grid xs={3}>العصر</Grid>
+                </span>
+              <span className={`${classes.block} ${classes.prayers} ${classes.extraLeft} ${classes.noBorderTopBottom}`}>
+                <Grid xs={3}>{today.time_maghreb}</Grid>
+                <Grid xs={6}></Grid>
+                <Grid xs={3}>المغرب</Grid>
+                </span>
+              <span
+                className={`${classes.block} ${classes.prayers} ${classes.extraLeft} ${classes.extraBottom} ${classes.noBorderTop}`} 
                 style={{ borderBottomLeftRadius: '10px'}}>
-                  {today.time_isha}</span>
+                  <Grid xs={3}>{today.time_isha}</Grid>
+                  <Grid xs={6}>{/* TODO: Whether here */}</Grid>
+                  <Grid xs={3}>العشاء</Grid></span>
             </Grid>
             <Grid xs={6}>
               <Grid style={{ height: "100%" }}>
